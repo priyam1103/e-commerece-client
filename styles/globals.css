@@ -767,12 +767,7 @@ a {
   width: 80%;
 }
 .carousel {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding-top: 6.5rem;
-
-  animation: 30s ease-in-out rotatep infinite;
+  display: none;
 }
 .home-card img{
   display: block;
