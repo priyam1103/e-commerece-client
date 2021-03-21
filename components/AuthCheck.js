@@ -28,6 +28,8 @@ export default function AuthCheck() {
             setLoading(false)
             alert("error");
           });
+      } else {
+        setLoading(false)
       }
     }
     authCheck();
