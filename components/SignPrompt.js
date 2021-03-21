@@ -16,12 +16,12 @@ export default function SignPrompt() {
     <div className="signin-prompt-box">
       {authenticated ?
         <GoogleLogout
-        clientId="811766296013-gf9ganrj4ntnro4tmu869rahln1k54od.apps.googleusercontent.com"
+        clientId="811766296013-snhjrcc3at10kpmou6c7hseeh2dfgmsf.apps.googleusercontent.com"
         buttonText="Logout"
         onLogoutSuccess={logout}
       />:
         <GoogleLogin
-          clientId="811766296013-gf9ganrj4ntnro4tmu869rahln1k54od.apps.googleusercontent.com"
+          clientId="811766296013-snhjrcc3at10kpmou6c7hseeh2dfgmsf.apps.googleusercontent.com"
           buttonText="Login with google"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
