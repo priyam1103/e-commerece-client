@@ -10,7 +10,7 @@ export default function SignPrompt() {
       .then((res) => {
         authenticateUser(res.data);
       })
-      .catch((err) => alert("Error"));
+      .catch((err) => alert("To continue , Please Allow cookies in your browser ,Advanced->SiteSettings->cookies, and then try again."));
   };
   return (
     <div className="signin-prompt-box">
