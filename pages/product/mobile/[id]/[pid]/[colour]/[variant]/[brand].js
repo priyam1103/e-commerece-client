@@ -3,6 +3,8 @@ import fetch from "isomorphic-fetch";
 import ProductDetailed from "../../../../../../../components/ProductDetailed";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Backdrop from "../../../../../../../components/Backdrop"
+import Loader from "../../../../../../../components/Loader" 
 import { useAppState } from "../../../../../../../context/GlobalState";
 // export async function getStaticPaths() {
 //   const res = await fetch(
@@ -30,6 +32,7 @@ export default function MobileDetails({
   variant,
   pid,
 }) {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { updateUser, user_data,authenticated } = useAppState();
   const [p_details, setPDetails] = useState({
@@ -81,6 +84,7 @@ export default function MobileDetails({
     setMainImage(value);
   }
   async function addToCart() {
+    setLoading(true);
     const token = await localStorage.getItem("dusky-ecomm");
     if (token) {
       await axios
@@ -95,14 +99,17 @@ export default function MobileDetails({
         )
         .then((res) => {
           updateUser(res.data.user);
-
+          setLoading(false);
           router.push("/cart");
-        });
+        }).catch((err) => {
+          setLoading(false);
+        })
     } else {
       alert("Please login")
     }
   }
   async function addToWishlist() {
+    setLoading(true);
     const token = await localStorage.getItem("dusky-ecomm");
     if (token) {
       await axios
@@ -116,8 +123,12 @@ export default function MobileDetails({
           }
         )
         .then((res) => {
+          setLoading(false);
           updateUser(res.data.user);
-        });
+        })
+        .catch((err) => {
+          setLoading(false);
+      })
     } else {
       alert("Please Login")
     }
@@ -139,6 +150,7 @@ export default function MobileDetails({
         user_data={user_data}
         authenticated={authenticated}
       />
+      {loading&&(<><Backdrop/><Loader/></>)}
     </div>
   );
 }
