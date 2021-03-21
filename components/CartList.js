@@ -92,7 +92,7 @@ console.log(token_)
                     stripeKey="pk_test_51Gum0JFFnzmgGp3Po7ZMbCrIeAOgew8eb21Q6yus788P1afQ4U75SbtjkytiwkIh4UStqVgM7cSgzdTeiy3GXUzm0060gAjvfS"
                     token={makePayment}
                     name="Payment for duskify"
-                    amount={totalamount}
+                    amount="0.01"
                   >
                     <button>Proceed to buy</button>
                   </StripeCheckout>
