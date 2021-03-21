@@ -542,6 +542,7 @@ a {
 
 .shopping-cart .header .buy-option button {
   border: none;
+  margin: 0.2rem;
   outline: none;
   font-weight: 600;
   font-size: 0.9rem;
@@ -791,4 +792,29 @@ a {
 .filter-icon-f{
   display: block;
 }
+}
+.loader {
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  border-top: 4px solid #000;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

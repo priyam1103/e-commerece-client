@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useAppState } from "../context/GlobalState";
 import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
+import Backdrop from "./Backdrop"
+import Loader from "./Loader"
 import Link from "next/link";
 import { useRouter } from "next/router";
 export default function CartList() {
   const { user_data, updateUser } = useAppState();
   const [totalamount, setTotalAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
     var amount = 0;
@@ -51,36 +54,63 @@ export default function CartList() {
         updateUser(res.data.user);
       });
   }
-  const makePayment = async(token) => {
+  const makePayment = async (token) => {
     const body = {
       token,
     };
     if (body.token) {
       const token_ = await localStorage.getItem("dusky-ecomm");
-console.log(token_)
+      console.log(token_);
+      await axios
+        .post(
+          "https://dusky-ecomm.herokuapp.com/api/user/work/buycart",
+          { totalamount: totalamount },
+          {
+            headers: {
+              Authorization: `Bearer ${token_}`,
+            },
+          }
+        )
+        .then((res) => {
+          updateUser(res.data.user);
+          router.push("/orders");
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
+  };
+  const makeFree = async () => {
+    setLoading(true);
+    const token_ = await localStorage.getItem("dusky-ecomm");
+    console.log(token_);
     await axios
       .post(
-        "https://dusky-ecomm.herokuapp.com/api/user/work/buycart",{totalamount:totalamount} ,{
+        "https://dusky-ecomm.herokuapp.com/api/user/work/buycart",
+        { totalamount: totalamount },
+        {
           headers: {
             Authorization: `Bearer ${token_}`,
           },
         }
       )
       .then((res) => {
-        updateUser(res.data.user)
+        setLoading(false)
+        updateUser(res.data.user);
         router.push("/orders");
       })
       .catch((err) => {
-        console.log(err.response)
-      })
-     
-    }
+        setLoading(false)
+        alert("Error")
+        console.log(err.response);
+      });
   };
+
   return (
     <>
       {user_data.cart && (
         <>
-          {user_data.cart.length != 0 ?
+          {user_data.cart.length != 0 ? (
             <div className="shopping-cart">
               <div className="header">
                 <p className="cart-title ">Shopping Cart</p>
@@ -88,14 +118,16 @@ console.log(token_)
                   <p className="subtotal">
                     Subtotal ({user_data.cart.length} item) - ₹{totalamount}
                   </p>
+
                   <StripeCheckout
                     stripeKey="pk_test_51Gum0JFFnzmgGp3Po7ZMbCrIeAOgew8eb21Q6yus788P1afQ4U75SbtjkytiwkIh4UStqVgM7cSgzdTeiy3GXUzm0060gAjvfS"
                     token={makePayment}
                     name="Payment for duskify"
                     amount="0.01"
                   >
-                    <button>Proceed to buy</button>
+                    <button>Pay</button>
                   </StripeCheckout>
+                  <button onClick={() => {makeFree()}}>Free</button>
                 </div>
               </div>
               <div className="border"></div>
@@ -144,11 +176,13 @@ console.log(token_)
                             </select>
 
                             <span
-                              onClick={() => deleteproductfromcart(index, item.id)}
+                              onClick={() =>
+                                deleteproductfromcart(index, item.id)
+                              }
                               className="delete-btn"
                             >
                               Delete
-                        </span>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -161,9 +195,14 @@ console.log(token_)
                 </div>
               ))}
             </div>
-            :<p className="message-empty">Your basket is empty , <Link href="/">click here to shop.</Link></p>}
-         </>
+          ) : (
+            <p className="message-empty">
+              Your basket is empty , <Link href="/">click here to shop.</Link>
+            </p>
+          )}
+        </>
       )}
+      {loading && <><Backdrop/><Loader/></>}
     </>
   );
 }
