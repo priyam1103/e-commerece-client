@@ -26,6 +26,7 @@ export default function SignPrompt() {
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
+          prompt='consent'
         />}
     </div>
   );
