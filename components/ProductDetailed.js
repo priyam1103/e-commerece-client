@@ -136,8 +136,8 @@ export default function ProductDetailed({
           </div>
           <div className="delivery">
             <p className="date">
-              <span className="free">FREE delivery:</span>
-              <span className="day"> Sunday, March 21</span>
+              <span className="free">FREE delivery by:</span>
+              <span className="day"> {new Date(Date.now()).toLocaleDateString()}</span>
             </p>
             <p className="emi">{variantstate.emi}</p>
           </div>
