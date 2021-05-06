@@ -9,7 +9,7 @@ export default function Carousel() {
   return (
     <div className="carousel">
       {data.map((item) => (
-        <img src={item} />
+        <img src={item} key={index}/>
       ))}
     </div>
   );
