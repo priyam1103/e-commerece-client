@@ -38,6 +38,11 @@ a {
   z-index: 15000;
   background-color: white;
 }
+.signin-prompt-box p{
+  text-align: center;
+  margin: 1rem;
+  cursor: pointer;
+}
 .navbar {
   width: 100%;
   padding: 0.5rem;

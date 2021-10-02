@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import axios from "axios";
 import { useAppState } from "../context/GlobalState";
-export default function SignPrompt() {
+export default function SignPrompt({promptsignin}) {
   const { authenticateUser,authenticated ,logout} = useAppState();
   const responseGoogle = (response) => {
     axios
@@ -13,6 +13,7 @@ export default function SignPrompt() {
       .catch((err) => alert("To continue , Please Allow cookies in your browser ,Advanced->SiteSettings->cookies, and then try again."));
   };
   return (
+    
     <div className="signin-prompt-box">
       {authenticated ?
         <GoogleLogout
@@ -28,6 +29,8 @@ export default function SignPrompt() {
           cookiePolicy={"single_host_origin"}
           prompt='consent'
         />}
-    </div>
+      <p onClick={()=>promptsignin()}>Close</p>
+      </div>
+      
   );
 }

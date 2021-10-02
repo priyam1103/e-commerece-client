@@ -3,7 +3,7 @@ export default (state, action) => {
     case "SIGNIN_PROMPT":
       return {
         ...state,
-        showsigninprompt: true,
+        showsigninprompt: !state.showsigninprompt,
       };
     case "UPDATE_USER":
       return {

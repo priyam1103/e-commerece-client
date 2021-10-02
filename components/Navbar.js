@@ -66,7 +66,7 @@ export default function Navbar() {
       {showsigninprompt && (
         <>
           <Backdrop />
-          <SignPrompt />
+          <SignPrompt promptsignin={promptsignin}/>
         </>
       )}
     </>

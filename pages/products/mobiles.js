@@ -5,6 +5,7 @@ import FiltersCard from "../../components/FiltersCard";
 import { Icon } from "semantic-ui-react";
 import Backdrop from "../../components/Backdrop";
 export default function mobiles({ data, notFound }) {
+  console.log(data)
   const [tempdata, setTempData] = useState(data);
   const [filter_d, setFilterData] = useState([]);
   const [showfilter, setShowFilter] = useState(false);
@@ -95,7 +96,7 @@ export default function mobiles({ data, notFound }) {
       }
       if (prevState.ram != null) {
         if (prevState.ram === "8GB & above") {
-          compare_data = compare_data.filter((item) => item.ram > 8);
+          compare_data = compare_data.filter((item) => item.ram >= 8);
         }
         if (prevState.ram === "6GB") {
           compare_data = compare_data.filter((item) => item.ram == 6);

@@ -27,7 +27,6 @@ export async function getServerSideProps({ params }) {
 
 export default function MobileDetails({
   product,
-  brand,
   colour,
   variant,
   pid,
@@ -35,11 +34,6 @@ export default function MobileDetails({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { updateUser, user_data,authenticated } = useAppState();
-  const [p_details, setPDetails] = useState({
-    brand: brand,
-    colour: colour,
-    variant: variant,
-  });
 
   const [productstate, setProductState] = useState({
     varaintname: variant,
@@ -66,20 +60,6 @@ export default function MobileDetails({
     setVariantState(product.variant[index_]);
   }, [colour, variant,pid]);
 
-  function handleColorState(value) {
-    // var index = product.color.indexOf(value);
-    // setColorState({
-    //   i1: product.images[index].i1,
-    //   i2: product.images[index].i2,
-    // });
-    // setProductState({ ...productstate, colorname: value });
-    // setMainImage(product.images[index].i1);
-  }
-  function handleVariantState(value) {
-    // var index = product.variants.indexOf(value);
-    // setVariantState(product.variant[index]);
-    // setProductState({ ...productstate, varaintname: value });
-  }
   function changeMainImage(value) {
     setMainImage(value);
   }
